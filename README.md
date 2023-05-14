@@ -55,14 +55,16 @@ docker build -t traceless .
 docker run --rm -p 80:80 --name traceless-app traceless:latest
 ```
 
-
-
 ## Usage
-
 1. Register an account
 2. Login with your credentials
 3. Start a new chat or join an existing one
 4. Enjoy secure, private conversations that are traceless after five days!
+
+## Project Demonstration
+We have prepared a live demonstration of our project, Traceless, to showcase its features, performance, and scalability. This live demo is accessible via the following link: [[Traceless Live Demo]](https://www.youtube.com/watch?v=BuLsW4wDre4&ab_channel=WallStreetDonut).
+
+The GitHub repository and the live demonstration together form the primary deliverables of our project. We encourage you to explore them and provide any feedback or questions you may have.
 
 ## Contributing
 
