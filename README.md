@@ -24,18 +24,37 @@ To get started with Traceless, follow these steps with Docker:
 git clone https://github.com/iamhyunsoo/Traceless.git
 cd Traceless
 ```
+
+#### MUST update the ConnectionStrings in Server/appsettings.json
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "USE YOUR MYSQL CONNECTION STRING",
+  "MyRedisConStr": "USE YOUR REDIS ENDPOINT"
+}
+
+```
+
+If you have to hard code AWS credentials, update codes in Server/Program.cs and Server/appsettings.json with your AWS credentials
+```cs
+var awsOptions = configuration.GetAWSOptions();
+builder.Services.AddDefaultAWSOptions(awsOptions);
+builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.USEast2));
+builder.Services.AddSingleton<IDynamoDBContext>(sp => new DynamoDBContext(sp.GetRequiredService<IAmazonDynamoDB>()));
+builder.Services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(RegionEndpoint.USEast2));
+```
+```json
+"AWS": {
+  "AccessKey": "your-access-key",
+  "SecretKey": "your-secret-key"
+}
+```
+
+Build a Docker image and run it
 ```bash
 docker build -t traceless .
 docker run --rm -p 80:80 --name traceless-app traceless:latest
 ```
 
-If you have to hard code AWS credentials, update codes in Server/Program.cs with your AWS credentials.
-```
-//var awsCredentials = new BasicAWSCredentials("your-access-key", "your-secret-key");
-//builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(awsCredentials, RegionEndpoint.USEast2));
-//builder.Services.AddSingleton<IDynamoDBContext>(sp => new DynamoDBContext(sp.GetRequiredService<IAmazonDynamoDB>()));
-//builder.Services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(awsCredentials, RegionEndpoint.USEast2));
-```
 
 
 ## Usage
