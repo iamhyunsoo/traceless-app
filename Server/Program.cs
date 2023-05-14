@@ -41,14 +41,15 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>
     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
 
 
-///////////////////////////////////////////////////////////////////////////////
-//// Use your aws credentials with line belows if you have to hard code it ////
-///////////////////////////////////////////////////////////////////////////////
-//var awsCredentials = new BasicAWSCredentials("your-access-key", "your-secret-key");
-//builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(awsCredentials, RegionEndpoint.USEast2));
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//// Use your aws credentials with lines below if you have to hard code it in appsettings.json /////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//var awsOptions = configuration.GetAWSOptions();
+//builder.Services.AddDefaultAWSOptions(awsOptions);
+//builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.USEast2));
 //builder.Services.AddSingleton<IDynamoDBContext>(sp => new DynamoDBContext(sp.GetRequiredService<IAmazonDynamoDB>()));
-//builder.Services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(awsCredentials, RegionEndpoint.USEast2));
-//// END //////////////////////////////////////////////////////////////////////
+//builder.Services.AddSingleton<IAmazonS3>(_ => new AmazonS3Client(RegionEndpoint.USEast2));
+//////////////////////////////////////// END ////////////////////////////////////////////////////////
 
 // Comment out the below 3 lines if you hard code aws credentials with the above lines
 builder.Services.AddSingleton<IAmazonDynamoDB>(_ => new AmazonDynamoDBClient(RegionEndpoint.USEast2));
